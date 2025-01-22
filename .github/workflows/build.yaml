@@ -40,10 +40,12 @@ jobs:
           cat $temp_file
 
           while IFS='' read -r line; do
-            source $line
-            echo "url: $PAGE_URL"
-            echo "title: $PAGE_TITLE"
-            ./singlefile "$PAGE_URL" "${html_dir}/${PAGE_TITLE}.html"
+            if [[ -f "$line" ]]; then
+              source $line
+              echo "url: $PAGE_URL"
+              echo "title: $PAGE_TITLE"
+              ./singlefile "$PAGE_URL" "${html_dir}/${PAGE_TITLE}.html"
+            fi
           done < $temp_file
 
           rm singlefile
