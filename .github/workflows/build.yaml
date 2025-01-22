@@ -28,7 +28,7 @@ jobs:
           pages_dir="pages"
           html_dir="html"
           temp_file=$(mktemp)
-          chrome_path=$(which chrome)
+          chrome_path=$(which google-chrome)
           echo "$chrome_path"
           $chrome_path --version
           
