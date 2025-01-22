@@ -35,11 +35,15 @@ jobs:
           
           curl -L -o singlefile https://github.com/gildas-lormeau/single-file-cli/releases/download/v2.0.73/single-file-x86_64-linux
           chmod +x singlefile
+          ./singlefile --help
           
           git diff --name-only HEAD~1 HEAD |grep "^${pages_dir}/" > $temp_file
+          cat $temp_file
 
           while IFS='' read -r line; do
             source $line
+            echo "url: $PAGE_URL"
+            echo "title: $PAGE_TITLE"
             ./singlefile "$PAGE_URL" > "${html_dir}/${PAGE_TITLE}.html"
           done < $temp_file
 
