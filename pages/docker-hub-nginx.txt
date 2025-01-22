@@ -1,2 +1,2 @@
-PAGE_TITLE="nginx - Official Image | Docker Hub"
+PAGE_TITLE="nginx - Official Image | DockerHub"
 PAGE_URL="https://hub.docker.com/_/nginx"
