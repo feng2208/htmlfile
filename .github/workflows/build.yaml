@@ -29,7 +29,6 @@ jobs:
           html_dir="html"
           temp_file=$(mktemp)
           chrome_path=$(which google-chrome)
-          echo "$chrome_path"
           $chrome_path --version
           
           if [[ ! -d "$html_dir" ]]; then
@@ -47,7 +46,7 @@ jobs:
               source $line
               echo "url: $PAGE_URL"
               echo "title: $PAGE_TITLE"
-              ./singlefile "$PAGE_URL" "${html_dir}/${PAGE_TITLE}.html"
+              ./singlefile --browser-executable-path $chrome_path "$PAGE_URL" "${html_dir}/${PAGE_TITLE}.html"
               [[ -f "${html_dir}/${PAGE_TITLE}.html" ]] || exit 1
             fi
           done < $temp_file
