@@ -46,8 +46,9 @@ jobs:
               source $line
               echo "url: $PAGE_URL"
               echo "title: $PAGE_TITLE"
-              ./singlefile --browser-executable-path $chrome_path "$PAGE_URL" "${html_dir}/${PAGE_TITLE}.html"
-              [[ -f "${html_dir}/${PAGE_TITLE}.html" ]] || exit 1
+              ./singlefile --browser-executable-path $chrome_path "$PAGE_URL" temp.html
+              [[ -f "temp.html" ]] || exit 1
+              mv temp.html "${html_dir}/${PAGE_TITLE}.html"
             fi
           done < $temp_file
 
