@@ -26,8 +26,8 @@ jobs:
         shell: bash
         run: |
           pages_dir="pages"
-          temp_file=$(mktemp)
           html_dir="html"
+          temp_file=$(mktemp)
           
           if [[ ! -d "$html_dir" ]]; then
             mkdir $html_dir
@@ -44,7 +44,7 @@ jobs:
             source $line
             echo "url: $PAGE_URL"
             echo "title: $PAGE_TITLE"
-            ./singlefile "$PAGE_URL" > "${html_dir}/${PAGE_TITLE}.html"
+            ./singlefile "$PAGE_URL" "${html_dir}/${PAGE_TITLE}.html"
           done < $temp_file
 
           rm singlefile
