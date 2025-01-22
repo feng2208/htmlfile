@@ -45,6 +45,7 @@ jobs:
               echo "url: $PAGE_URL"
               echo "title: $PAGE_TITLE"
               ./singlefile "$PAGE_URL" "${html_dir}/${PAGE_TITLE}.html"
+              [[ -f "${html_dir}/${PAGE_TITLE}.html" ]] || exit 1
             fi
           done < $temp_file
 
