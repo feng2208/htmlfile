@@ -1,2 +1,3 @@
+# PAGE_TITLE 作为文件名
 PAGE_TITLE="nginx镜像使用说明"
 PAGE_URL="https://hub.docker.com/_/nginx"
