@@ -1,0 +1,52 @@
+name: Save web page to html file
+on:
+  #schedule:
+  #  - cron:  '30 5,17 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pages/*'
+  
+jobs:
+  save-page:
+    name: Save web page to html file
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          
+      - name: save page
+        shell: bash
+        run: |
+          pages_dir="pages"
+          temp_file=$(mktemp)
+          html_dir="html"
+          
+          if [[ ! -d "$html_dir" ]]; then
+            mkdir $html_dir
+          fi
+          
+          curl -L -o singlefile https://github.com/gildas-lormeau/single-file-cli/releases/download/v2.0.73/single-file-x86_64-linux
+          chmod +x singlefile
+          
+          git diff --name-only HEAD~1 HEAD |grep "^${pages_dir}/" > $temp_file
+
+          while IFS='' read -r line; do
+            source $line
+            ./singlefile "$PAGE_URL" > "${html_dir}/${PAGE_TITLE}.html"
+          done < $temp_file
+
+          rm singlefile
+
+      - name: apply changes to repo
+        uses: stefanzweifel/git-auto-commit-action@v5
+
+
+    
